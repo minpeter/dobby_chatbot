@@ -6,8 +6,6 @@ params = {
     #기본인자
     "KEY": readfile(".api_key"),
     "Type": "json",
-    "pindex": "1",
-    "pSize": "10",
     #신청인자
     "ATPT_OFCDC_SC_CODE": "B10",
     "SD_SCHUL_CODE": "7010911",
