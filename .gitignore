@@ -1,2 +1,4 @@
 .venv
-.api_key
+
+api_key.json
+school_info.json

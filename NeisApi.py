@@ -1,6 +1,6 @@
 import requests
 import json
-from readfile import readfile
+import filemanager as fm
 import urllib3 # for disabling SSL warnings
 
 urllib3.disable_warnings() # Disable SSL warnings
@@ -8,14 +8,14 @@ urllib3.disable_warnings() # Disable SSL warnings
 class NeisApi:
     def __init__(self, url, type='json'):
         self.url = url
-        params = {
+        self.params = {
             #기본인자
-            "KEY": readfile(".api_key"),
+            "KEY": fm.readfile(".api_key"),
             "Type": type
         }
-        print(params)
 
-    def get_data(self, params):
+    def get_data(self):
+        params = self.params.update(fm.read_school_info)
         response = requests.get(self.url, params=params, verify=False)
         return response.text
     
@@ -35,7 +35,7 @@ class NeisApi:
     
     
 
-# https://open.neis.go.kr/hub/schoolInfo
+# https://open.neis.go.kr/hub/
 # 학교기본정보
 
 class SchoolInfo(NeisApi):
