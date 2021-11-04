@@ -10,32 +10,33 @@ class NeisApi:
         self.url = url
         self.params = {
             #기본인자
-            "KEY": fm.readfile(".api_key"),
+            "KEY": fm.read_api_key("neis"),
             "Type": type
         }
 
     def get_data(self):
-        params = self.params.update(fm.read_school_info)
-        response = requests.get(self.url, params=params, verify=False)
+        response = requests.get(self.url, params=self.params, verify=False)
+        self.params.update(fm.read_school_info("ATPT_OFCDC_SC_CODE"))
+        self.params.update(fm.read_school_info("SD_SCHUL_CODE"))
         return response.text
     
     def data_refine(self, response_text, refine_key):
         refine_data = json.loads(response_text)[refine_key][1]["row"][0]
         return refine_data
     
-    @classmethod
-    def add_params(cls, params_key, params_value):
-        cls.params[params_key] = params_value
-        return 0
+    # @classmethod
+    # def add_params(cls, params_key, params_value):
+    #     cls.params[params_key] = params_value
+    #     return 0
 
-    @classmethod
-    def update_school_info(cls, atpt_ofcdc_sc_code, sd_schul_code):
-        cls.params["ATPT_OFCDC_SC_CODE"] = atpt_ofcdc_sc_code
-        cls.params["SD_SCHUL_CODE"] = sd_schul_code
+    # @classmethod
+    # def update_school_info(cls, atpt_ofcdc_sc_code, sd_schul_code):
+    #     cls.params["ATPT_OFCDC_SC_CODE"] = atpt_ofcdc_sc_code
+    #     cls.params["SD_SCHUL_CODE"] = sd_schul_code
     
     
 
-# https://open.neis.go.kr/hub/
+# https://open.neis.go.kr/hub/schoolInfo
 # 학교기본정보
 
 class SchoolInfo(NeisApi):
@@ -45,11 +46,12 @@ class SchoolInfo(NeisApi):
         self.schul_nm = schul_nm
 
     def get_school_info(self):
-        
-        params = NeisApi.add_params("schulNm", self.schul_nm)
-        response_text = self.get_data(params)
+        # params = NeisApi.add_params("schulNm", self.schul_nm)
+        self.params["SCHUL_NM"] = self.schul_nm
+        response_text = self.get_data()
         data = self.data_refine(response_text, "schoolInfo")
-        NeisApi.update_school_info(data["ATPT_OFCDC_SC_CODE"], data["SD_SCHUL_CODE"])
+        # NeisApi.update_school_info(data["ATPT_OFCDC_SC_CODE"], data["SD_SCHUL_CODE"])
+        fm.write_school_info({"ATPT_OFCDC_SC_CODE":data["ATPT_OFCDC_SC_CODE"], "SD_SCHUL_CODE":data["SD_SCHUL_CODE"]})
 
 # https://open.neis.go.kr/hub/mealServiceDietInfo
 # 급식식단정보
@@ -61,12 +63,14 @@ class MealService(NeisApi):
         self.mlsv_ymd = mlsv_ymd
 
         #신청인자
-        NeisApi.params['MLSV_YMD'] = self.mlsv_ymd
+        # NeisApi.params['MLSV_YMD'] = self.mlsv_ymd
     
     def get_meal_info(self):
+        self.params.update({"MLSV_YMD":self.mlsv_ymd})
+        self.params.update(fm.read_school_info("ATPT_OFCDC_SC_CODE"))
+        self.params.update(fm.read_school_info("SD_SCHUL_CODE"))
+
         response_text = self.get_data()
-        print(response_text) # for debugging
-        
         data = self.data_refine(response_text, "mealServiceDietInfo")
         return data
 
