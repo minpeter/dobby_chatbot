@@ -1,5 +1,7 @@
 import requests
 import json
+
+from requests.models import Response
 import filemanager as fm
 import urllib3 # for disabling SSL warnings
 
@@ -23,18 +25,6 @@ class NeisApi:
     def data_refine(self, response_text, refine_key):
         refine_data = json.loads(response_text)[refine_key][1]["row"][0]
         return refine_data
-    
-    # @classmethod
-    # def add_params(cls, params_key, params_value):
-    #     cls.params[params_key] = params_value
-    #     return 0
-
-    # @classmethod
-    # def update_school_info(cls, atpt_ofcdc_sc_code, sd_schul_code):
-    #     cls.params["ATPT_OFCDC_SC_CODE"] = atpt_ofcdc_sc_code
-    #     cls.params["SD_SCHUL_CODE"] = sd_schul_code
-    
-    
 
 # https://open.neis.go.kr/hub/schoolInfo
 # 학교기본정보
@@ -61,14 +51,11 @@ class MealService(NeisApi):
         URL = "https://open.neis.go.kr/hub/mealServiceDietInfo"
         super().__init__(URL)
         self.mlsv_ymd = mlsv_ymd
-
-        #신청인자
-        # NeisApi.params['MLSV_YMD'] = self.mlsv_ymd
-    
-    def get_meal_info(self):
         self.params.update({"MLSV_YMD":self.mlsv_ymd})
         self.params.update(fm.read_school_info("ATPT_OFCDC_SC_CODE"))
         self.params.update(fm.read_school_info("SD_SCHUL_CODE"))
+    
+    def get_meal_info(self):
 
         response_text = self.get_data()
         data = self.data_refine(response_text, "mealServiceDietInfo")
@@ -78,26 +65,38 @@ class MealService(NeisApi):
 # 고등학교시간표
 
 class SchoolSchedul(NeisApi):
-    def __init__(self, atpt_ofcdc_sc_code, sd_schul_code):
+    def __init__(self, ay, sem, all_ti_ymd, grade):
         URL = "https://open.neis.go.kr/hub/SchoolSchedule"
         super().__init__(URL)
-        self.atpt_ofcdc_sc_code = atpt_ofcdc_sc_code
-        self.sd_schul_code = sd_schul_code
+        self.ay = ay
+        self.sem = sem
+        self.all_ti_ymd = all_ti_ymd
+        self.grade = grade
+        self.params.update({"AY":self.ay})
+        self.params.update({"SEM":self.sem})
+        self.params.update({"ALL_TI_YMD":self.all_ti_ymd})
+        self.params.update({"GRADE":self.grade})
 
-        #신청인자
-        NeisApi.params['ATPT_OFCDC_SC_CODE'] = self.atpt_ofcdc_sc_code
-        NeisApi.params['SD_SCHUL_CODE'] = self.atpt_ofcdc_sc_code
+        self.params.update(fm.read_school_info("ATPT_OFCDC_SC_CODE"))
+        self.params.update(fm.read_school_info("SD_SCHUL_CODE"))
+        
+    def get_schedul(self):
+        response_text = self.get_data()
+        data = self.data_refine(response_text, "SchoolSchedule")
+        return data
 
 #  https://open.neis.go.kr/hub/acaInsTiInfo
 # 학사일정
 
 class AcaInsTiInfo(NeisApi):
-    def __init__(self, atpt_ofcdc_sc_code, sd_schul_code):
+    def __init__(self):
         URL = "https://open.neis.go.kr/hub/acaInsTiInfo"
         super().__init__(URL)
-        self.atpt_ofcdc_sc_code = atpt_ofcdc_sc_code
-        self.sd_schul_code = sd_schul_code
+        self.params.update(fm.read_school_info("ATPT_OFCDC_SC_CODE"))
+        self.params.update(fm.read_school_info("SD_SCHUL_CODE"))
 
-        #신청인자
-        NeisApi.params['ATPT_OFCDC_SC_CODE'] = self.atpt_ofcdc_sc_code
-        NeisApi.params['SD_SCHUL_CODE'] = self.atpt_ofcdc_sc_code
+    
+    def get_aca(self):
+        response_text = self.get_data()
+        data = self.data_refine(response_text, "SchoolSchedule")
+        return data
