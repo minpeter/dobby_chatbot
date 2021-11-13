@@ -61,12 +61,12 @@ class MealService(NeisApi):
         data = self.data_refine(response_text, "mealServiceDietInfo")
         return data
 
-# https://open.neis.go.kr/hub/SchoolSchedule
+# https://open.neis.go.kr/hub/hisTimetable
 # 고등학교시간표
 
-class SchoolSchedul(NeisApi):
+class hisTimetable(NeisApi):
     def __init__(self, ay, sem, all_ti_ymd, grade):
-        URL = "https://open.neis.go.kr/hub/SchoolSchedule"
+        URL = "https://open.neis.go.kr/hub/hisTimetable"
         super().__init__(URL)
         self.ay = ay
         self.sem = sem
@@ -80,17 +80,18 @@ class SchoolSchedul(NeisApi):
         self.params.update(fm.read_school_info("ATPT_OFCDC_SC_CODE"))
         self.params.update(fm.read_school_info("SD_SCHUL_CODE"))
         
-    def get_schedul(self):
+    def get_timetable(self):
         response_text = self.get_data()
-        data = self.data_refine(response_text, "SchoolSchedule")
+        print(response_text)
+        data = self.data_refine(response_text, "hisTimetable")
         return data
 
-#  https://open.neis.go.kr/hub/acaInsTiInfo
+#  https://open.neis.go.kr/hub/SchoolSchedule
 # 학사일정
 
-class AcaInsTiInfo(NeisApi):
+class SchoolSchedule(NeisApi):
     def __init__(self):
-        URL = "https://open.neis.go.kr/hub/acaInsTiInfo"
+        URL = "https://open.neis.go.kr/hub/SchoolSchedule"
         super().__init__(URL)
         self.params.update(fm.read_school_info("ATPT_OFCDC_SC_CODE"))
         self.params.update(fm.read_school_info("SD_SCHUL_CODE"))
