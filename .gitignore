@@ -1,0 +1,5 @@
+.venv
+
+api_key.json
+school_info.json
+__pycache__
