@@ -33,3 +33,15 @@ class SchoolApi:
             "ATPT_OFCDC_SC_CODE": school_info["ATPT_OFCDC_SC_CODE"],
             "SD_SCHUL_CODE": school_info["SD_SCHUL_CODE"]
         }
+    
+    def meal(self):
+        data = self.get_data()
+        return data["DDISH_NM"].replace("<br/>", "\n")
+
+    def time(self):
+        data = self.get_data()
+        return data["TIME"]
+
+    def schedule(self):
+        data = self.get_data()
+        return data["EVENT_NM"]+"이(가) 있습니다."
