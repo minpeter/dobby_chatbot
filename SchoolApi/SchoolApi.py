@@ -1,6 +1,6 @@
 import requests
 import json
-import filemanager as fm
+from SchoolApi import filemanager as fm
 
 class SchoolApi:
 
@@ -22,7 +22,9 @@ class SchoolApi:
         self.params.update(SchoolApi.params)
         self.params.update(SchoolApi.schoolinfo)
         response = requests.get(URL, params=self.params)
-        print(response.text)
+
+        # print(response.text)    #for debug
+
         return json.loads(response.text)[self.sub_url][1]["row"][0]
 
     def get_school_info(self):
