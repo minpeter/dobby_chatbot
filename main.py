@@ -1,4 +1,5 @@
 from SchoolApi.SchoolApi import SchoolApi
+from game.Rsp import Rsp
 
 def dobby_say(msg):
     print(f'Dobby: {msg}')
@@ -48,6 +49,11 @@ while not quit:
     elif "양말" in msg or "exit" in msg or "quit" in msg:
         dobby_say("양말을 도비에게 주었어요\n도비는 자유에요")
         quit = True
+
+    elif "게임" in msg or "놀" in msg or "심심해" in msg:
+        dobby_say("좋습니다! 도비랑 게임 하나 하시죠..!")
+        ## 게임 시작 부분 - 여기에 게임 코드를 작성하세요
+        dobby_say(Rsp().rsp_result())
 
     else:
         dobby_say("도비는 그런건 할 줄 몰라요 \n - 도움말을 입력해 알아보아요 :)")
