@@ -32,7 +32,7 @@ while not quit:
                 "  1) 오늘 급식 보기\n"+
                 "  2) 내일 급식 보기\n"+
                 "  3) 직접 날짜 입력하기")
-
+#인우 git 설명용 코드
         answer = int(my_answer())
         if answer == 1:
             dobby_say("오늘의 급식은!")
