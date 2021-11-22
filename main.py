@@ -1,5 +1,5 @@
-from SchoolApi.SchoolApi import SchoolApi
-from game.Rsp import Rsp
+from SchoolApi import SchoolApi
+from Rsp import Rsp
 
 def dobby_say(msg):
     print(f'Dobby: {msg}')
