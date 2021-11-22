@@ -1,5 +1,6 @@
 from SchoolApi import SchoolApi
 from Rsp import Rsp
+from Quiz import quiz
 from datetime import datetime as dt
 from datetime import timedelta as td
 
@@ -87,9 +88,18 @@ while not quit:
         quit = True
 
     elif "게임" in msg or "놀" in msg or "심심해" in msg:
-        dobby_say("좋습니다! 도비랑 게임 하나 하시죠..!")
+        dobby_say("좋습니다! 도비랑 게임 하나 하시죠..!\n"+
+                "  1) 가위-바위-보 게임\n"+
+                "  2) 해리포터 퀴즈 게임!\n"+
+                "  3) 홀짝 게임")
         ## 게임 시작 부분 - 여기에 게임 코드를 작성하세요
-        dobby_say(Rsp().rsp_result())
+        answer = int(my_answer())
+        if answer == 1:
+            dobby_say(Rsp().rsp_result())
+        elif answer == 2:
+            dobby_say(quiz())
+        elif answer == 3:
+            dobby_say("아직은 준비중이예요 :)")
 
     else:
         dobby_say("도비는 그런건 할 줄 몰라요 \n - 도움말을 입력해 알아보아요 :)")
