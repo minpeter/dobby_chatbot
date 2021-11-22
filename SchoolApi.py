@@ -39,11 +39,17 @@ class SchoolApi:
             }
         except:
             print("도비가 학교를 못 찾겠어요 :(\n좀 더 정확하게 입력해주세요")
+            print("도비는 학교는 못찾으면 슬퍼요.. 아무고토 못해요...")
+            quit()
 
     def meal(self):
         data = self.get_data()
         try:
-            return data["DDISH_NM"].replace("<br/>", "\n")
+            string = data["DDISH_NM"].replace("<br/>", "\n")
+            characters = "1234567890."
+            for x in range(len(characters)):
+                string = string.replace(characters[x],"")
+            return string
         except:
             return "오늘은 급식이 없습니다."
 

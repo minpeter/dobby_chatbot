@@ -1,7 +1,6 @@
 import json
 import os
 
-
 # filemanager.py 파일이 위치한 디렉토리 경로를 반환합니다.
 # filename 인자가 존재할경우 해당 파일의 경로를 반환합니다.
 def file_dir(filename=""):
