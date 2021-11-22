@@ -4,13 +4,14 @@
 
 ```
 requests
+random
 json
 os
 ```
 
 ## 설정파일 설명
 
-SchoolApi/api_key.json 파일 생성 후, [여기](https://open.neis.go.kr/portal/mainPage.do)에서 api 키를 발급 받아 아래와 같은 형식으로 저장
+api_key.json 파일 생성 후, [여기](https://open.neis.go.kr/portal/mainPage.do)에서 api 키를 발급 받아 아래와 같은 형식으로 저장
 
 ```
 {

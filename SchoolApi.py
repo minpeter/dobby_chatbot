@@ -1,6 +1,6 @@
 import requests
 import json
-from SchoolApi import filemanager as fm
+import filemanager as fm
 
 class SchoolApi:
 

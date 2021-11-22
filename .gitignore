@@ -1,5 +1,6 @@
 .venv
-
 api_key.json
-school_info.json
 __pycache__
+
+# just in case
+api_result_ex
