@@ -27,7 +27,7 @@ class SchoolApi:
         try:
             return json.loads(response.text)[self.sub_url][1]["row"][0]
         except:
-            print("해당하는 데이터가 존재하지 않습니다.")
+            print("주인님이 말하시는 데이터가 없어요....")
             return json.loads(response.text)
 
     def get_school_info(self):
@@ -39,7 +39,7 @@ class SchoolApi:
             }
         except:
             print("도비가 학교를 못 찾겠어요 :(\n좀 더 정확하게 입력해주세요")
-            print("도비는 학교는 못찾으면 슬퍼요.. 아무고토 못해요...")
+            print("도비는 주인님이 말한 걸 못 찾으면 슬퍼요.. 아무고토 못해요...")
             quit()
 
     def meal(self):
@@ -51,18 +51,18 @@ class SchoolApi:
                 string = string.replace(characters[x],"")
             return string
         except:
-            return "오늘은 급식이 없습니다."
+            return "오늘은 급식이 없는 날입니다, 주인님!"
 
     def time(self):
         data = self.get_data()
         try:
             return data["TIME"]
         except:
-            return "오늘은 시간표가 없습니다."
+            return "오늘은 시간표가 없는 날이에요...!"
 
     def schedule(self):
         data = self.get_data()
         try:
             return data["EVENT_NM"]+"이(가) 있습니다."
         except:
-            return "오늘은 일정이 없습니다."
+            return "오늘은 주인님의 일정이 아무 것도 없어요!"
