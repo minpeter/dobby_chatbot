@@ -1,6 +1,7 @@
 from SchoolApi import SchoolApi
 from Rsp import Rsp
 from Quiz import quiz
+import random
 from datetime import datetime as dt
 from datetime import timedelta as td
 
@@ -84,8 +85,13 @@ while not quit:
                 "양말을 주면, 도비는 무료가 되요!")
     
     elif "양말" in msg or "exit" in msg or "quit" in msg:
-        dobby_say("양말을 도비에게 주었어요\n도비는 자유에요")
+        bye = ['도비는 자유에요!','도비는 이제 떠날 수 있어요!','도비는 떠날거에요!','주인님이 저에게 양말을 주셨어요! 아무도 도비를 속박하지 못해','이제 아무도 도비를 속박하지 못해요!']
+        dobby_say(random.choice(bye))
         quit = True
+
+    elif "하이" in msg or "안녕" in msg:
+        hi = ['반갑습니다..도비에요..','도비입니다..','왔습니다, 주인님!','주인님 도비랑 놀아주세요','안녕하세요 주인님']
+        dobby_say(random.choice(hi))
 
     elif "게임" in msg or "놀" in msg or "심심해" in msg:
         dobby_say("좋습니다! 도비랑 게임 하나 하시죠..!\n"+
