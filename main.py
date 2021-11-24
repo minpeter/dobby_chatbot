@@ -45,6 +45,9 @@ while not quit:
             params = {
                 "MLSV_YMD":  str(my_answer()),
             }
+        else :
+            dobby_say("잘못된 입력입니다!")
+
         dobby_say(SchoolApi("mealServiceDietInfo", params).meal())
 
     elif "시간표" in msg:
@@ -74,6 +77,9 @@ while not quit:
             params = {
                 "AA_YMD":  str(my_answer()),
             }
+        else :
+            dobby_say("잘못된 입력입니다!")
+
         dobby_say(SchoolApi("SchoolSchedule", params).schedule())
 
     elif "도와줘" in msg or "도움말" in msg or "help" in msg:
@@ -107,6 +113,8 @@ while not quit:
             dobby_say(quiz())
         elif answer == 3:
             dobby_say("아직은 준비중이예요 :)")
+        else :
+            dobby_say("잘못된 입력입니다!")
 
     else:
         dobby_say("도비는 그런건 할 줄 몰라요 \n - 도움말을 입력해 알아보아요 :)")
