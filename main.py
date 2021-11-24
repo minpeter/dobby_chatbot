@@ -19,7 +19,7 @@ def my_answer():
 dobby_say("도비 일어났어요!! 뿌우📣")
 quit = False
 params = {
-    "SCHUL_NM": str(input("주인님이 찾으시는 학교명을 입력해주세요!!(fullname) : ")),
+    "SCHUL_NM": str(input("주인님이 찾으시는 학교명을 입력해주세요!! : ")),
 }
 
 while not quit:
@@ -50,7 +50,7 @@ while not quit:
     elif "시간표" in msg:
         dobby_say("시간표을 알고싶으시다고요?")
         params = {
-            "ALL_TI_YMD":  str(input("시간표일자(YYYYMMDD) : ")),
+            "ALL_TI_YMD":  str(input("어느날의 시간표가 알고 싶으세요? (YYYYMMDD) : ")),
             "GRADE":  str(input("학년 : ")),
             "CLASS_NM":  str(input("반명 : "))
         }
