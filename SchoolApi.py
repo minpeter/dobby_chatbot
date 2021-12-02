@@ -22,13 +22,17 @@ class SchoolApi:
         self.params.update(SchoolApi.params)
         self.params.update(SchoolApi.schoolinfo)
         response = requests.get(URL, params=self.params)
+        j_response = json.loads(response.text)[self.sub_url]
 
-        # print(response.text)    #for debug
+        # print(j_response)    #for debug
         try:
-            return json.loads(response.text)[self.sub_url][1]["row"][0]
+            if j_response[0]["head"][0]["list_total_count"] == 1:
+                return j_response[1]["row"][0]
+            else:
+                return j_response[1]["row"]
         except:
             print("주인님이 말하시는 데이터가 없어요....")
-            return json.loads(response.text)
+            return j_response
 
     def get_school_info(self):
         data = self.get_data()
@@ -55,8 +59,11 @@ class SchoolApi:
 
     def time(self):
         data = self.get_data()
+        string = ""
         try:
-            return data["TIME"]
+            for i in data:
+                string += i["ITRT_CNTNT"] + "\n"
+            return string
         except:
             return "오늘은 시간표가 없는 날이에요...!"
 

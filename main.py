@@ -53,11 +53,27 @@ while not quit:
     elif "시간표" in msg:
         dobby_say("시간표을 알고싶으시다고요?")
         params = {
-            "ALL_TI_YMD":  str(input("어느날의 시간표가 알고 싶으세요? (YYYYMMDD) : ")),
             "GRADE":  str(input("학년 : ")),
             "CLASS_NM":  str(input("반명 : "))
         }
-        dobby_say(SchoolApi("hisTimetable", params).get_data())
+        dobby_say("시간표를 알려드리겠습니다, 주인님\n"+
+                "  1) 오늘 시간표를 알고 싶으시다면 이쪽입니다.\n"+
+                "  2) 내일 시간표를 알고 싶으시다면 이쪽입니다.\n"+
+                "  3) 직접 날짜를 입력하고 싶으시면 이쪽으로 와주세요!")
+        answer = int(my_answer())
+        if answer == 1:
+            dobby_say("오늘의 시간표를 알고싶으시다고요?")
+            params["ALL_TI_YMD"] = dt.now().strftime("%Y%m%d")
+        elif answer == 2:
+            dobby_say("내일의 시간표를 알고싶으시다고요?")
+            params["ALL_TI_YMD"] = (dt.now()+td(1)).strftime("%Y%m%d")
+        elif answer == 3:
+            dobby_say("어느날의 시간표를 알고 싶으세요? (YYYYMMDD)")
+            params["ALL_TI_YMD"] = str(my_answer())
+        else :
+            dobby_say("잘못된 입력입니다!")
+
+        dobby_say(SchoolApi("hisTimetable", params).time())
 
     elif "학사" in msg or "일정" in msg:
         dobby_say("학사일정을 알려드리겠습니다, 주인님\n"+
