@@ -1,6 +1,6 @@
 from SchoolApi import SchoolApi
 import Rsp
-from Quiz import quiz
+import Quiz
 import Marble
 import random
 from datetime import datetime as dt
@@ -119,7 +119,7 @@ while not quit:
         if selector == 1:
             Rsp.game()
         elif selector == 2:
-            dobby_say(quiz())
+            Quiz.game()
         elif selector == 3:
             Marble.game()
         else :
