@@ -127,9 +127,8 @@ while not quit:
 
     elif "양말" in msg or "socks" in msg or "돌아가" in msg:
         bye = ['도비는 자유에요! 😊','도비는 이제 떠날 수 있어요! ✨','도비는 떠날거에요! ✈️',\
-               '주인님이 저에게 양말을 주셨어요! 🧦\n아무도 도비를 속박하지 못해',\
-               '이제 아무도 도비를 속박하지 못해요! ⚓']
-        dobby_say(random.choice(bye))
+               '아무도 도비를 속박하지 못해 🤨', '이제 아무도 도비를 속박하지 못해요! ⚓']
+        dobby_say("주인님이 저에게 양말을 주셨어요! 🧦\n"+random.choice(bye))
         quit = True
 
     else:
