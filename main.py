@@ -1,6 +1,7 @@
 from SchoolApi import SchoolApi
 from Rsp import Rsp
 from Quiz import quiz
+from Marble import Marble
 import random
 from datetime import datetime as dt
 from datetime import timedelta as td
@@ -128,7 +129,7 @@ while not quit:
         elif answer == 2:
             dobby_say(quiz())
         elif answer == 3:
-            dobby_say("아직은 준비중이예요 :)")
+            dobby_say(Marble().game())
         else :
             dobby_say("잘못된 입력입니다!")
 
