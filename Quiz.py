@@ -4,12 +4,11 @@ import filemanager as fm
 from interface import *
 
 class Quiz:
-    def __init__(self, player, quiz_list):
+    def __init__(self, player):
         self.player = player
         self.p_result = "" # 나의 퀴즈 정답
         self.result = "" # 퀴즈의 정답
-        self.quiz_list = quiz_list
-        self.score = 0
+        self.quiz_list = fm.read_quiz()
 
     def prtStatus(self):
         clear()
@@ -19,7 +18,7 @@ class Quiz:
         print()
 
         print("   현재 점수 : ", end="") #한국어줄맞춤이슈
-        for i in range(self.score):
+        for i in range(self.player.getScore()):
             print("🟢", end="")
         print()
 
@@ -27,7 +26,7 @@ class Quiz:
         if self.player.getNumber() == 0:
             clear()
             dobby_say("모든 문제를 풀었습니다 🚀\n" +
-                      f"{self.score}문제를 맞히셨군요!")
+                      f"{self.player.getScore()}문제를 맞히셨군요!")
             return False
         else:
             return True
@@ -48,14 +47,13 @@ class Quiz:
         self.p_result = int(answer())
         if self.p_result == self.result:
             dobby_say("정답입니다!")
-            self.score += 1
+            self.player.addScore()
         else:
             dobby_say("오답입니다. 정답은 " + str(self.result) + "입니다.")
 
 def game():
     player = User("Malfoy", 3)
-    quiz_json = fm.read_quiz()
-    quiz = Quiz(player, quiz_json)
+    quiz = Quiz(player)
 
     quiz.prtStatus()
 
