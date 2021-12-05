@@ -1,21 +1,8 @@
 import random
+from User import User
 from interface import *
 
-class User:
-    def __init__(self, name, number = 4):
-        self.name = name
-        self.number = number
-
-    def getName(self):
-        return self.name
-    
-    def getNumber(self):
-        return self.number
-    
-    def dropMarble(self):
-        self.number -= 1
-
-class Show:
+class Marble:
     def __init__(self, player, dobby):
         self.dobby = dobby
         self.player = player
@@ -54,7 +41,7 @@ class Show:
         dobby_say("홀짝을 예상해주세요!\n"+
                   "  1) 홀수\n"+
                   "  2) 짝수")
-        self.expec = int(my_answer())    #예상값을 입력
+        self.expec = int(answer())    #예상값을 입력
 
     def oddeven(self):
         number_list = random.choice(range(1, self.dobby.getNumber()+1))
@@ -67,27 +54,30 @@ class Show:
 
     def count(self):
         if self.result == self.expec:    #예상에 성공한 경우 도비의 구슬이 감소
-            self.dobby.dropMarble()
+            self.dobby.dropNumber()
             dobby_say("주인님이 맞추셨어요!!\n"+
                       "도비의 구슬을 가져가셔도 좋아요....")
         
         elif self.result != self.expec:    #실패한 경우 플레이어의 구슬 감소
-            self.player.dropMarble()
+            self.player.dropNumber()
             dobby_say("아이쿠..주인님 틀리셨네요\n"+
                       "주인님의 구슬은 이제 제 것입니다!")
 
 
 def game():
-    player = User("Malfoy")
-    dobby = User("Dobby")
+    player = User("Malfoy", 4)
+    dobby = User("Dobby", 4)
 
-    show = Show(player, dobby)
+    marble = Marble(player, dobby)
 
-    show.prtStatus()
+    marble.prtStatus()
 
-    while(show.evaluate()):
-        show.turn()
-        show.oddeven()
-        show.count()
+    while(marble.evaluate()):
+        marble.turn()
+        marble.oddeven()
+        marble.count()
         petc()
-        show.prtStatus()
+        marble.prtStatus()
+
+if __name__ == "__main__":
+    game()

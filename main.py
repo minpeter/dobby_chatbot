@@ -1,20 +1,21 @@
 from SchoolApi import SchoolApi
-from Rsp import Rsp
+import Rsp
 from Quiz import quiz
 import Marble
 import random
 from datetime import datetime as dt
 from datetime import timedelta as td
 
+from filemanager import prtBanner
 from interface import *
 
 clear()
-
+prtBanner()
 dobby_say("도비 일어났어요!! 뿌우📣\n"+
           "주인님이 찾으시는 학교명을 입력해주세요!!")
 
 params = {
-    "SCHUL_NM": str(my_answer()),
+    "SCHUL_NM": str(answer()),
 }
 
 quit = False
@@ -23,24 +24,24 @@ while not quit:
     SchoolApi("schoolInfo", params).get_school_info()
     clear()
     dobby_say("무엇을 하실껀가요, 주인님?")
-    msg = my_answer()
+    msg = answer()
 
     if "급식" in msg:
         dobby_say("급식말입니까? 알겠습니다!\n"+
                   "  1) 주인님의 오늘 급식은 이쪽입니다.\n"+
                   "  2) 내일 급식을 보고싶으시다면 이쪽입니다!\n"+
                   "  3) 직접 날짜를 입력하고 싶으시면 이쪽으로 와주세요!")
-        answer = int(my_answer())
-        if answer == 1:
+        selector = int(answer())
+        if selector == 1:
             dobby_say("오늘의 급식은!")
             params={"MLSV_YMD": dt.now().strftime("%Y%m%d")}
-        elif answer == 2:
+        elif selector == 2:
             dobby_say("내일의 급식은!")
             params={"MLSV_YMD": (dt.now()+td(1)).strftime("%Y%m%d")}
-        elif answer == 3:
+        elif selector == 3:
             dobby_say("어느날의 급식이 알고 싶으세요? (YYYYMMDD)")
             params = {
-                "MLSV_YMD":  str(my_answer()),
+                "MLSV_YMD":  str(answer()),
             }
         else :
             dobby_say("잘못된 입력입니다!")
@@ -57,16 +58,16 @@ while not quit:
                   "  1) 오늘 시간표를 알고 싶으시다면 이쪽입니다.\n"+
                   "  2) 내일 시간표를 알고 싶으시다면 이쪽입니다.\n"+
                   "  3) 직접 날짜를 입력하고 싶으시면 이쪽으로 와주세요!")
-        answer = int(my_answer())
-        if answer == 1:
+        selector = int(answer())
+        if selector == 1:
             dobby_say("오늘의 시간표를 알고싶으시다고요?")
             params["ALL_TI_YMD"] = dt.now().strftime("%Y%m%d")
-        elif answer == 2:
+        elif selector == 2:
             dobby_say("내일의 시간표를 알고싶으시다고요?")
             params["ALL_TI_YMD"] = (dt.now()+td(1)).strftime("%Y%m%d")
-        elif answer == 3:
+        elif selector == 3:
             dobby_say("어느날의 시간표를 알고 싶으세요? (YYYYMMDD)")
-            params["ALL_TI_YMD"] = str(my_answer())
+            params["ALL_TI_YMD"] = str(answer())
         else :
             dobby_say("잘못된 입력입니다!")
 
@@ -78,17 +79,17 @@ while not quit:
                   "  2) 내일 학사일정은 이쪽에서 도와드리겠습니다, 주인님\n"+
                   "  3) 직접 날짜 입력하실려면 여기에서 도와드리도록 하죠")
 
-        answer = int(my_answer())
-        if answer == 1:
+        selector = int(answer())
+        if selector == 1:
             dobby_say("오늘의 학사일정은!")
             params={"AA_YMD": dt.now().strftime("%Y%m%d")}
-        elif answer == 2:
+        elif selector == 2:
             dobby_say("내일 학사일정은!")
             params={"AA_YMD": (dt.now()+td(1)).strftime("%Y%m%d")}
-        elif answer == 3:
+        elif selector == 3:
             dobby_say("어느날의 학사일정이 알고 싶으세요? (YYYYMMDD)")
             params = {
-                "AA_YMD":  str(my_answer()),
+                "AA_YMD":  str(answer()),
             }
         else :
             dobby_say("잘못된 입력입니다!")
@@ -105,8 +106,9 @@ while not quit:
     
 
     elif "양말" in msg or "socks" in msg or "돌아가" in msg:
-        bye = ['도비는 자유에요!','도비는 이제 떠날 수 있어요!','도비는 떠날거에요!',\
-               '주인님이 저에게 양말을 주셨어요! 아무도 도비를 속박하지 못해','이제 아무도 도비를 속박하지 못해요!']
+        bye = ['도비는 자유에요! 😊','도비는 이제 떠날 수 있어요! ✨','도비는 떠날거에요! ✈️',\
+               '주인님이 저에게 양말을 주셨어요! 🧦\n아무도 도비를 속박하지 못해',\
+               '이제 아무도 도비를 속박하지 못해요! ⚓']
         dobby_say(random.choice(bye))
         quit = True
 
@@ -120,12 +122,12 @@ while not quit:
                   "  1) 도비와 가위-바위-보\n"+
                   "  2) 도비와 함께 하는 해리포터 퀴즈!\n"+
                   "  3) 도비와 구슬 홀짝 미니게임")
-        answer = int(my_answer())
-        if answer == 1:
-            dobby_say(Rsp().rsp_result())
-        elif answer == 2:
+        selector = int(answer())
+        if selector == 1:
+            Rsp.game()
+        elif selector == 2:
             dobby_say(quiz())
-        elif answer == 3:
+        elif selector == 3:
             Marble.game()
         else :
             dobby_say("잘못된 입력입니다!")

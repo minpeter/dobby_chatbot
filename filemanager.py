@@ -13,6 +13,9 @@ def readfile(filename):
     except:
         return 'file read error ❌'
 
+def prtBanner():
+    print(readfile(file_dir("banner.txt")))
+
 def readjson(filename):
     return json.loads(readfile(filename))
 
@@ -48,3 +51,4 @@ def writejson(filename, data):
     
 def write_school_info(data):
     writejson(file_dir("school_info.json"), data)
+
