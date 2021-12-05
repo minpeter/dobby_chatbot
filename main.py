@@ -1,12 +1,14 @@
 from SchoolApi import SchoolApi
 from Rsp import Rsp
 from Quiz import quiz
-from Marble import Marble
+import Marble
 import random
 from datetime import datetime as dt
 from datetime import timedelta as td
 
 from interface import *
+
+clear()
 
 dobby_say("도비 일어났어요!! 뿌우📣\n"+
           "주인님이 찾으시는 학교명을 입력해주세요!!")
@@ -19,7 +21,7 @@ quit = False
 
 while not quit:
     SchoolApi("schoolInfo", params).get_school_info()
-
+    clear()
     dobby_say("무엇을 하실껀가요, 주인님?")
     msg = my_answer()
 
@@ -124,9 +126,11 @@ while not quit:
         elif answer == 2:
             dobby_say(quiz())
         elif answer == 3:
-            dobby_say(Marble().game())
+            Marble.game()
         else :
             dobby_say("잘못된 입력입니다!")
 
     else:
         dobby_say("도비는 그런건 할 줄 몰라요 \n - 도움말을 입력해 알아보아요 :)")
+
+    petc()
