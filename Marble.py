@@ -14,7 +14,6 @@ class Marble:
         dNumber = self.dobby.getNumber()
 
         clear()
-        
         print("%6s"% self.player.getName() + " : ", end="")
         for i in range(pNumber):
             print("🟡", end="")
@@ -57,12 +56,11 @@ class Marble:
             self.dobby.dropNumber()
             dobby_say("주인님이 맞추셨어요!!\n"+
                       "도비의 구슬을 가져가셔도 좋아요....")
-        
+
         elif self.result != self.expec:    #실패한 경우 플레이어의 구슬 감소
             self.player.dropNumber()
             dobby_say("아이쿠..주인님 틀리셨네요\n"+
                       "주인님의 구슬은 이제 제 것입니다!")
-
 
 def game():
     player = User("Malfoy", 4)

@@ -2,6 +2,7 @@ from SchoolApi import SchoolApi
 import Rsp
 import Quiz
 import Marble
+
 import random
 from datetime import datetime as dt
 from datetime import timedelta as td
@@ -12,8 +13,8 @@ from interface import *
 clear()
 prtBanner()
 
-hi = ['반갑습니다..도비에요..','도비입니다..','왔습니다, 주인님!',\
-        '주인님 도비랑 놀아주세요','안녕하세요 주인님','도비 일어났어요!! 뿌우📣']
+hi = ['반갑습니다..도비에요.. 😄','도비입니다.. ⌛','왔습니다, 주인님! 🚀',\
+        '주인님 도비랑 놀아주세요 🤨','안녕하세요 주인님 🎈','도비 일어났어요!! 뿌우📣']
 dobby_say(f"{random.choice(hi)}\n"+
           "주인님이 찾으시는 학교명을 입력해주세요!!")
 
@@ -26,7 +27,9 @@ quit = False
 while not quit:
     SchoolApi("schoolInfo", params).get_school_info()
     clear()
-    dobby_say("무엇을 하실껀가요, 주인님?")
+    wait_input = ["무엇을 하실껀가요, 주인님?", "주인님, 무엇을 하실껀가요?", "주인님을 기다리고 있습니다.."]
+    dobby_say(f"{random.choice(wait_input)}")
+
     msg = answer()
 
     if "급식" in msg:
@@ -106,9 +109,6 @@ while not quit:
                 "학사일정을 알고싶으시면 학사일정을 입력해주세요\n"+
                 "저와 게임을 하고 싶으시다면 게임을 입력해주세요!\n"+
                 "양말을 주면, 도비는 무료가 되요!")
-    
-
-
 
     elif "게임" in msg or "놀" in msg or "심심해" in msg:
         dobby_say("좋습니다! 도비랑 게임 하나 하시죠..!\n"+
