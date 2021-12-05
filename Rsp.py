@@ -6,8 +6,8 @@ class Rsp:
     def __init__(self, player, dobby):
         self.dobby = dobby
         self.player = player
-        self.dRsp = "" # 매턴 마다 홀짝 결과 저장
-        self.pRsp = "" # 매턴 홀짝 예상 값
+        self.d_rsp = "" # 매턴 마다 홀짝 결과 저장
+        self.p_rsp = "" # 매턴 홀짝 예상 값
 
     def prtStatus(self):
         pNumber = self.player.getNumber()
@@ -42,22 +42,22 @@ class Rsp:
                   "  1) 가위\n"+
                   "  2) 바위\n"+
                   "  3) 보")
-        self.pRsp = int(answer())
-        self.dRsp = random.choice(range(1, 3+1))
+        self.p_rsp = int(answer())
+        self.d_rsp = random.choice(range(1, 3+1))
 
     def rsp_comp(self):
-        if self.dRsp == self.pRsp:
+        if self.d_rsp == self.p_rsp:
             dobby_say("이런..! 주인님이랑 비겨버렸네요..\n")
 
-        elif self.pRsp==1 and self.dRsp==3 or \
-                self.pRsp==2 and self.dRsp==1 or \
-                    self.pRsp==3 and self.dRsp==2:
+        elif self.p_rsp==1 and self.d_rsp==3 or \
+                self.p_rsp==2 and self.d_rsp==1 or \
+                    self.p_rsp==3 and self.d_rsp==2:
             self.dobby.dropNumber()
             dobby_say("주인님이 이겼어요! 🚀")
 
-        elif self.pRsp==1 and self.dRsp==2 or \
-                self.pRsp==2 and self.dRsp==3 or \
-                    self.pRsp==3 and self.dRsp==1:
+        elif self.p_rsp==1 and self.d_rsp==2 or \
+                self.p_rsp==2 and self.d_rsp==3 or \
+                    self.p_rsp==3 and self.d_rsp==1:
             self.player.dropNumber()
             dobby_say("도비가!! 도비가 이겼어요!! 🪄")
         else:

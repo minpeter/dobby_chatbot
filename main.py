@@ -11,7 +11,10 @@ from interface import *
 
 clear()
 prtBanner()
-dobby_say("도비 일어났어요!! 뿌우📣\n"+
+
+hi = ['반갑습니다..도비에요..','도비입니다..','왔습니다, 주인님!',\
+        '주인님 도비랑 놀아주세요','안녕하세요 주인님','도비 일어났어요!! 뿌우📣']
+dobby_say(f"{random.choice(hi)}\n"+
           "주인님이 찾으시는 학교명을 입력해주세요!!")
 
 params = {
@@ -51,8 +54,8 @@ while not quit:
     elif "시간표" in msg:
         dobby_say("시간표을 알고싶으시다고요?")
         params = {
-            "GRADE":  str(input("학년 : ")),
-            "CLASS_NM":  str(input("반명 : "))
+            "GRADE":  str(input("호그와트 몇 학년이세요? : ")),
+            "CLASS_NM":  str(input("혹시 몇반인지 알 수 있을까요? : "))
         }
         dobby_say("시간표를 알려드리겠습니다, 주인님\n"+
                   "  1) 오늘 시간표를 알고 싶으시다면 이쪽입니다.\n"+
@@ -105,22 +108,12 @@ while not quit:
                 "양말을 주면, 도비는 무료가 되요!")
     
 
-    elif "양말" in msg or "socks" in msg or "돌아가" in msg:
-        bye = ['도비는 자유에요! 😊','도비는 이제 떠날 수 있어요! ✨','도비는 떠날거에요! ✈️',\
-               '주인님이 저에게 양말을 주셨어요! 🧦\n아무도 도비를 속박하지 못해',\
-               '이제 아무도 도비를 속박하지 못해요! ⚓']
-        dobby_say(random.choice(bye))
-        quit = True
 
-    elif "하이" in msg or "안녕" in msg:
-        hi = ['반갑습니다..도비에요..','도비입니다..','왔습니다, 주인님!',\
-              '주인님 도비랑 놀아주세요','안녕하세요 주인님']
-        dobby_say(random.choice(hi))
 
     elif "게임" in msg or "놀" in msg or "심심해" in msg:
         dobby_say("좋습니다! 도비랑 게임 하나 하시죠..!\n"+
-                  "  1) 도비와 가위-바위-보\n"+
-                  "  2) 도비와 함께 하는 해리포터 퀴즈!\n"+
+                  "  1) 도비와 가위-바위-보 삼세판\n"+
+                  "  2) 도비와 함께 하는 해리포터 마법 퀴즈!\n"+
                   "  3) 도비와 구슬 홀짝 미니게임")
         selector = int(answer())
         if selector == 1:
@@ -132,7 +125,14 @@ while not quit:
         else :
             dobby_say("잘못된 입력입니다!")
 
+    elif "양말" in msg or "socks" in msg or "돌아가" in msg:
+        bye = ['도비는 자유에요! 😊','도비는 이제 떠날 수 있어요! ✨','도비는 떠날거에요! ✈️',\
+               '주인님이 저에게 양말을 주셨어요! 🧦\n아무도 도비를 속박하지 못해',\
+               '이제 아무도 도비를 속박하지 못해요! ⚓']
+        dobby_say(random.choice(bye))
+        quit = True
+
     else:
-        dobby_say("도비는 그런건 할 줄 몰라요 \n - 도움말을 입력해 알아보아요 :)")
+        dobby_say("도비는 그런건 할 줄 몰라요 \n\"도움말\"을 입력해 도비에 대해 알아보아요 :)")
 
     petc()

@@ -52,3 +52,5 @@ def writejson(filename, data):
 def write_school_info(data):
     writejson(file_dir("school_info.json"), data)
 
+def read_quiz():
+    return readjson(file_dir("quiz.json"))

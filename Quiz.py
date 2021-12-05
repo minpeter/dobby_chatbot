@@ -1,32 +1,69 @@
 import random
+from User import User
+import filemanager as fm
+from interface import *
 
-def quiz():
-    eng_word = [["해리는 볼드 모트 경을 죽이기 위해 사용한", "엑스펠리아르무스"], ["잠겨 있는 문을 열수있는", "알로호모라"], ["헤르미온느가 부모님의 기억을 지울 때 시용했던", "오블리비아테"], ["믈건을 조립할 때 사용하는", "에렉토"], ["물건을 소환하는", "아씨오"], ["물건을 복제하는", "제미니오"], ["사물이나 사람을 밀칠 때 쓰는", "아라니아 엑서메이"]]
+class Quiz:
+    def __init__(self, player, quiz_list):
+        self.player = player
+        self.p_result = "" # 나의 퀴즈 정답
+        self.result = "" # 퀴즈의 정답
+        self.quiz_list = quiz_list
+        self.score = 0
 
-    quiz_on = True
-    score = 0
-    quiz_num = 0
-
-    while quiz_on:
-        quiz_num += 1
-        multi_choice = random.sample(eng_word, 4)
-        answer_index = random.randint(0, 3)
-
-        print(f"문제{quiz_num}번.{multi_choice[answer_index][0]} 주문은 무엇일까요...?")
-
-        for i in range(4):
-            print(f"{i + 1}. {multi_choice[i][1]}")
-
+    def prtStatus(self):
+        clear()
+        print("남은 퀴즈 수 : ", end="")
+        for i in range(self.player.getNumber()):
+            print("🟢", end="")
         print()
-        user_input = int(input("정답을 적어주세요!!. 종료: 0>>>>  "))
 
-        if user_input == 0:
-            quiz_on = False
-            print("퀴즈가 끝났습니다~.")
-            print(f"총 {quiz_num-1}문제 중 {score}문제를 맞히셨군요!!")
-        elif user_input == answer_index + 1:
-            score += 1
-            print("정답이에요!!.")
+        print("   현재 점수 : ", end="") #한국어줄맞춤이슈
+        for i in range(self.score):
+            print("🟢", end="")
+        print()
+
+    def evaluate(self):
+        if self.player.getNumber() == 0:
+            clear()
+            dobby_say("모든 문제를 풀었습니다 🚀\n" +
+                      f"{self.score}문제를 맞히셨군요!")
+            return False
         else:
-            print(f"아쉽게도 오답이네요. 정답은 {answer_index + 1}번 이에요~!.")
-        print()
+            return True
+
+    def quiz(self): #해리포터 관련 퀴즈를 랜덤으로 출력
+        random_index = random.choice(range(len(self.quiz_list)))
+        dobby_say(self.quiz_list[random_index]["quiz"] + "\n" + \
+                  "  1)" + self.quiz_list[random_index]["example"][0] + "\n" + \
+                  "  2)" + self.quiz_list[random_index]["example"][1] + "\n" + \
+                  "  3)" + self.quiz_list[random_index]["example"][2] + "\n" + \
+                  "  4)" + self.quiz_list[random_index]["example"][3] + "\n")
+        self.result = self.quiz_list[random_index]["answer_index"]
+        del(self.quiz_list[random_index])
+
+    def comp(self):
+        self.player.dropNumber()
+        dobby_say("정답은 몇번째 답인가요?")
+        self.p_result = int(answer())
+        if self.p_result == self.result:
+            dobby_say("정답입니다!")
+            self.score += 1
+        else:
+            dobby_say("오답입니다. 정답은 " + str(self.result) + "입니다.")
+
+def game():
+    player = User("Malfoy", 3)
+    quiz_json = fm.read_quiz()
+    quiz = Quiz(player, quiz_json)
+
+    quiz.prtStatus()
+
+    while(quiz.evaluate()):
+        quiz.quiz()
+        quiz.comp()
+        petc()
+        quiz.prtStatus()
+
+if __name__ == "__main__":
+    game()
