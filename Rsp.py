@@ -12,7 +12,7 @@ class Rsp:
     def prtStatus(self):
         pNumber = self.player.getNumber()
         dNumber = self.dobby.getNumber()
-
+        
         clear()
         
         print("%6s"% self.player.getName() + " : ", end="")
